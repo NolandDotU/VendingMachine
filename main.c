@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <unistd.h> // For usleep
+#include <unistd.h>
 #include <conio.h>
 
 #define MAX_DRINKS 5
@@ -19,7 +19,8 @@ Drink drinks[MAX_DRINKS] = {
     {2, "Sprite", 7500, 7},
     {3, "Pepsi", 8500, 7},
     {4, "Fanta", 7500, 7},
-    {5, "NutriBoost", 6500, 7}};
+    {5, "NutriBoost", 6500, 7}
+};
 
 void display()
 {
@@ -46,9 +47,10 @@ void loading()
     printf("\nLoading Complete\n");
 }
 
-void beliDrink(int drinkCode, int bayar)
+void beliDrink()
 {
     int index = -1;
+    int drinkCode, bayar;
 
     printf("Enter drink code: ");
     scanf("%d", &drinkCode);
@@ -84,21 +86,34 @@ void beliDrink(int drinkCode, int bayar)
     {
         printf("Mohon ditunggu %s. Terima Kasih!\n", drinks[index].name);
         drinks[index].quantity--;
-        printf("Kembalian: $%d\n", bayar - drinks[index].price);
+        printf("Kembalian: Rp.%d\n", bayar - drinks[index].price);
         getch();
     }
 }
 
 int main()
 {
-    printf("WELCOME TO NOLAN VM!\n");
-    loading();
-    sleep(3);
-    system("cls");
-    display();
-    int drinkCode, bayar; // Variables to hold user input
-    beliDrink(drinkCode, bayar);
-    display();
-    getch();
+    char ulang = 'y';
+
+    while (ulang == 'y' || ulang == 'Y')
+    {
+        system("cls");
+        printf("WELCOME TO NOLAN VM!\n");
+        loading();
+        sleep(3);
+        system("cls");
+        display();
+        beliDrink();
+        getch();
+        printf("Ada tambahan? (Y/N): ");
+        scanf(" %c", &ulang);
+        if (ulang == 'n' || ulang == 'N')
+        {
+            system("cls");
+            printf("THANK YOU, COME AGAIN...");
+            sleep(3);
+        }
+        
+    }
     return 0;
 }
